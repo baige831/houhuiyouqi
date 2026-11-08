@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>《后会友期》人格测试 | 你是哪位旧友</title>
+<style>
+  :root{
+    --bg:#f6efe6; --card:#fffdf9; --ink:#2c2825; --sub:#8a7f72;
+    --line:#efe5d8; --accent:#d98e4a; --accent2:#6b8fae;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    line-height:1.6; padding-bottom:40px;
+  }
+  .wrap{max-width:520px; margin:0 auto; padding:0 16px;}
+  /* 顶部封面 */
+  .hero{
+    text-align:center; padding:34px 8px 10px;
+  }
+  .hero .kicker{font-size:12px; letter-spacing:4px; color:var(--accent);}
+  .hero h1{font-size:30px; margin:8px 0 4px; font-weight:800; letter-spacing:1px;}
+  .hero .sub{color:var(--sub); font-size:14px;}
+  .hero .motto{margin-top:12px; font-size:12px; color:var(--accent2); letter-spacing:2px;}
+  .mountain{font-size:44px; line-height:1; margin:6px 0;}
+  /* 卡片 */
+  .card{background:var(--card); border:1px solid var(--line); border-radius:18px; padding:20px; margin:14px 0; box-shadow:0 4px 20px rgba(0,0,0,.04);}
+  .q-num{font-size:12px; color:var(--accent); letter-spacing:2px;}
+  .q-title{font-size:20px; font-weight:700; margin:6px 0 16px;}
+  .progress{height:6px; background:var(--line); border-radius:3px; margin:10px 0 0; overflow:hidden;}
+  .progress>i{display:block; height:100%; background:linear-gradient(90deg,var(--accent),var(--accent2)); border-radius:3px; transition:width .3s;}
+  .opt{
+    display:block; width:100%; text-align:left; border:1px solid var(--line); background:#fff;
+    border-radius:14px; padding:14px 16px; margin:10px 0; font-size:16px; color:var(--ink);
+    cursor:pointer; transition:all .15s;
+  }
+  .opt:active{transform:scale(.985);}
+  .opt.sel{border-color:var(--accent); background:#fdf3e7;}
+  .btn{
+    display:block; width:100%; border:0; border-radius:14px; padding:15px; font-size:17px; font-weight:700;
+    color:#fff; background:linear-gradient(90deg,var(--accent),#e6a15c); cursor:pointer; letter-spacing:2px;
+  }
+  .btn.ghost{background:#fff; color:var(--accent); border:1px solid var(--accent);}
+  .hidden{display:none !important;}
+  /* 结果卡（可截图） */
+  .result-card{
+    border-radius:20px; overflow:hidden; border:1px solid var(--line); background:#fff;
+    box-shadow:0 8px 30px rgba(0,0,0,.08);
+  }
+  .rc-head{color:#fff; padding:26px 20px 22px; text-align:center;}
+  .rc-head .emoji{font-size:52px; line-height:1;}
+  .rc-head .rtype{font-size:13px; letter-spacing:3px; opacity:.9; margin-top:8px;}
+  .rc-head .gname{font-size:34px; font-weight:800; margin:4px 0 0;}
+  .rc-head .gtag{font-size:15px; opacity:.95; margin-top:2px;}
+  .rc-body{padding:22px 20px;}
+  .rc-body h3{font-size:13px; color:var(--accent); letter-spacing:3px; margin:0 0 12px;}
+  .trait{display:flex; gap:10px; align-items:flex-start; margin:10px 0; font-size:15px;}
+  .trait b{color:var(--accent2); flex:none;}
+  .quote{margin-top:18px; padding:14px 16px; background:var(--bg); border-radius:12px; font-size:14px; color:var(--sub); font-style:italic;}
+  .rc-foot{text-align:center; padding:14px; font-size:12px; color:var(--sub); border-top:1px dashed var(--line);}
+  /* 嘉宾图鉴 */
+  .gallery h2{font-size:22px; text-align:center; margin:28px 0 4px;}
+  .gallery .note{text-align:center; color:var(--sub); font-size:13px; margin-bottom:6px;}
+  .gcard{border-radius:18px; overflow:hidden; border:1px solid var(--line); background:#fff; margin:14px 0; box-shadow:0 4px 16px rgba(0,0,0,.04);}
+  .gcard .gh{color:#fff; padding:18px 18px 14px; display:flex; align-items:center; gap:12px;}
+  .gcard .gh .emoji{font-size:34px;}
+  .gcard .gh .nm{font-size:20px; font-weight:800;}
+  .gcard .gh .tg{font-size:12px; opacity:.9; letter-spacing:1px;}
+  .gcard .gb{padding:16px 18px;}
+  .gcard .gb .role{font-size:12px; color:var(--accent2); letter-spacing:1px;}
+  .gcard .gb ul{margin:8px 0 0; padding-left:18px; font-size:14px; color:#5a5349;}
+  .gcard .gb li{margin:5px 0;}
+  .disclaimer{text-align:center; font-size:11px; color:#b7aa99; margin-top:24px; line-height:1.7;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- 封面 -->
+  <div class="hero" id="hero">
+    <div class="kicker">芒果TV · 友情治愈真人秀</div>
+    <div class="mountain">🏔️</div>
+    <h1>《后会友期》<br>人格测试</h1>
+    <div class="sub">你是哪位旧友？</div>
+    <div class="motto">终点未至 · 后会友期</div>
+  </div>
+
+  <!-- 开始 -->
+  <div id="startScreen">
+    <div class="card" style="text-align:center;">
+      <p style="font-size:15px;color:#5a5349;margin:4px 0 16px;">四对走散多年的旧友踏上高原之旅。<br>面对友情里的隔阂与遗憾，你的选择最像谁？</p>
+      <button class="btn" onclick="start()">开始测试</button>
+    </div>
+  </div>
+
+  <!-- 答题 -->
+  <div id="quizScreen" class="hidden">
+    <div class="card">
+      <div class="q-num" id="qNum"></div>
+      <div class="q-title" id="qTitle"></div>
+      <div id="qOpts"></div>
+      <div class="progress"><i id="bar"></i></div>
+    </div>
+  </div>
+
+  <!-- 结果 -->
+  <div id="resultScreen" class="hidden">
+    <div class="result-card" id="resultCard"></div>
+    <div style="display:flex;gap:10px;margin-top:16px;">
+      <button class="btn" onclick="start()" style="flex:1;">再测一次</button>
+      <button class="btn ghost" onclick="scrollGallery()" style="flex:1;">看全部嘉宾</button>
+    </div>
+  </div>
+
+  <!-- 嘉宾图鉴 -->
+  <div class="gallery" id="gallery">
+    <h2>嘉宾人格图鉴</h2>
+    <div class="note">娱乐向分析 · 仅供参考</div>
+    <div id="galleryBox"></div>
+  </div>
+
+  <div class="disclaimer">本测试为粉丝娱乐向内容，非专业心理测评<br>节目信息以芒果TV官方为准</div>
+</div>
+
+<script>
+const GUESTS = {
+  lina:{name:"厉娜",tag:"温柔敏感型",emoji:"🕊️",color:"#c98a9e",
+    role:"歌手 · 2006超女",
+    traits:["外柔内细，情绪像高原的天气，细腻多变","把旧情看得很重，容易在深夜反复复盘","嘴上说没事，心里已经演完一整部电影","朋友一靠近，你其实早就心软了"],
+    quote:"「我早就原谅你了，只是还没想好怎么开口。」"},
+  xufei:{name:"许飞",tag:"清醒创作型",emoji:"🎸",color:"#5b8db8",
+    role:"歌手 · 唱作人",
+    traits:["有才华，独立清醒，习惯用作品代替解释","不轻易交心，但认定的朋友会记很久","理性之下藏着温度，写出来的比说出来的多","和旧友重逢，你更愿意各自体面、也好过凑合"],
+    quote:"「有些话不必说尽，懂的人自然懂。」"},
+  zhangmeng:{name:"张萌",tag:"直球主理型",emoji:"🔥",color:"#d9793f",
+    role:"演员 · 制片人",
+    traits:["目标感强，雷厉风行，是朋友里的主心骨","有主见、敢说敢做，最讨厌拖泥带水","事业心强，也愿意为在乎的人撑场子","遇到矛盾会主动摊开，不攒着过夜"],
+    quote:"「有误会就现在说清楚，别等下一个十八年。」"},
+  matianyu:{name:"马天宇",tag:"温和通透型",emoji:"🌿",color:"#5f9e96",
+    role:"演员",
+    traits:["情绪稳定，温柔通透，自带治愈感","不争不抢，但心里什么都明白","是朋友里最舒服的存在，相处零压力","面对旧账，你更愿意过去了就过去了"],
+    quote:"「能再见面，就已经是最好的结局。」"},
+  wenjier:{name:"文吉儿",tag:"文艺细腻型",emoji:"📖",color:"#9b7bb8",
+    role:"作家",
+    traits:["文字敏感，情感丰沛，理想主义","习惯把心事写进句子里，读来全是情绪","对『懂』这件事有很高的期待","和旧友重逢，你会想记录下每个心动的瞬间"],
+    quote:"「我把没说完的话，都写进了故事里。」"},
+  wangzixuan:{name:"王子璇",tag:"鲜活灵动型",emoji:"✨",color:"#e05b7a",
+    role:"演员",
+    traits:["情绪外放，鲜活有梗，是行走的气氛组","敢爱敢表达，喜欢和不喜欢都写在脸上","好奇心强，对新鲜的人和事永远热情","和旧友重逢，你会用玩笑把尴尬冲淡"],
+    quote:"「气氛僵了？那我先讲个笑话。」"},
+  qingzhi:{name:"青稚",tag:"热血直球型",emoji:"🎮",color:"#4f9e63",
+    role:"和平精英 · 职业电竞选手",
+    traits:["直接热血，不服输，行动派","电竞练出来的胜负心，也用在交朋友上","不会绕弯，喜欢就是喜欢，挺你到底","和旧友重逢，你会直接一句当年到底咋了"],
+    quote:"「当年到底咋了？来，今天说清楚。」"},
+  baixiaochun:{name:"白小纯",tag:"沉稳坚守型",emoji:"🏔️",color:"#7a8ba6",
+    role:"和平精英 · 职业电竞选手",
+    traits:["内敛沉稳，话不多，但每一步都走得很稳","重情义，认定的朋友能守很久","不擅长煽情，却总在关键时刻默默顶上","和旧友重逢，你更多是『我一直在』"],
+    quote:"「我一直在，只是没让你看见。」"},
+};
+
+const QUESTIONS = [
+  {q:"和很久没联系的老友，突然被安排一起旅行18天，你第一反应是？",
+   opts:[{t:"期待又紧张，怕尴尬",s:{lina:1}},
+         {t:"先看看情况，不主动开口",s:{matianyu:1,baixiaochun:1}},
+         {t:"主动破冰，直接聊",s:{zhangmeng:1,qingzhi:1}},
+         {t:"想写点什么，先记录下来",s:{xufei:1,wenjier:1}}]},
+  {q:"旅行中朋友提起过去的误会，你会？",
+   opts:[{t:"心里翻涌，但憋着",s:{lina:1}},
+         {t:"理性分析谁对谁错",s:{xufei:1}},
+         {t:"直接摊开说清楚",s:{zhangmeng:1,qingzhi:1}},
+         {t:"先听完，再温柔回应",s:{matianyu:1}}]},
+  {q:"你的社交电量更像哪种？",
+   opts:[{t:"需要独处充电",s:{xufei:1,wenjier:1,baixiaochun:1}},
+         {t:"越聊越嗨",s:{wangzixuan:1,qingzhi:1,zhangmeng:1}},
+         {t:"看人，熟了才嗨",s:{lina:1,matianyu:1}}]},
+  {q:"遇到分歧时，你更像？",
+   opts:[{t:"坚持自己，据理力争",s:{zhangmeng:1,qingzhi:1,xufei:1}},
+         {t:"回避，不想起冲突",s:{lina:1,baixiaochun:1}},
+         {t:"找折中方案",s:{matianyu:1,wenjier:1}},
+         {t:"先道歉缓气氛",s:{wangzixuan:1,lina:1}}]},
+  {q:"朋友说「我们其实不适合做朋友」，你内心？",
+   opts:[{t:"被刺痛，反复回想",s:{lina:1,wenjier:1}},
+         {t:"接受，各自安好",s:{xufei:1,matianyu:1}},
+         {t:"不甘心，要问清楚",s:{qingzhi:1,zhangmeng:1}},
+         {t:"难过，但尊重",s:{baixiaochun:1,wangzixuan:1}}]},
+  {q:"你更靠什么交朋友？",
+   opts:[{t:"聊得来、灵魂共鸣",s:{xufei:1,wenjier:1}},
+         {t:"一起扛过事、够义气",s:{qingzhi:1,baixiaochun:1}},
+         {t:"舒服、不用刻意",s:{matianyu:1,wangzixuan:1}},
+         {t:"真诚直接、不绕弯",s:{zhangmeng:1,lina:1}}]},
+  {q:"你表达情感的方式更接近？",
+   opts:[{t:"写下来 / 创作",s:{xufei:1,wenjier:1}},
+         {t:"说出来，直给",s:{zhangmeng:1,qingzhi:1,wangzixuan:1}},
+         {t:"用行动默默做",s:{baixiaochun:1,matianyu:1}},
+         {t:"有点别扭，口是心非",s:{lina:1}}]},
+  {q:"一群朋友里，你通常是？",
+   opts:[{t:"主心骨 / 拿主意",s:{zhangmeng:1,xufei:1,qingzhi:1}},
+         {t:"气氛担当 / 开心果",s:{wangzixuan:1}},
+         {t:"倾听者 / 稳定器",s:{matianyu:1,baixiaochun:1,lina:1}},
+         {t:"记录者 / 观察者",s:{wenjier:1,xufei:1}}]},
+  {q:"你最看重的是？",
+   opts:[{t:"忠诚与长久",s:{baixiaochun:1,lina:1,matianyu:1}},
+         {t:"自由与真实",s:{xufei:1,wangzixuan:1,qingzhi:1}},
+         {t:"理解与共鸣",s:{wenjier:1,lina:1}},
+         {t:"成长与并肩",s:{zhangmeng:1,qingzhi:1}}]},
+  {q:"这趟高原旅行，你最期待的是？",
+   opts:[{t:"怕高反，但想看雪山",s:{matianyu:1,wenjier:1}},
+         {t:"刺激和挑战",s:{qingzhi:1,wangzixuan:1}},
+         {t:"安静聊天的时刻",s:{xufei:1,lina:1,baixiaochun:1}},
+         {t:"把行程安排得明明白白",s:{zhangmeng:1}}]},
+];
+
+let qi = 0, score = {};
+
+function start(){
+  qi = 0; score = {};
+  document.getElementById('startScreen').classList.add('hidden');
+  document.getElementById('resultScreen').classList.add('hidden');
+  document.getElementById('quizScreen').classList.remove('hidden');
+  renderQ();
+}
+
+function renderQ(){
+  const Q = QUESTIONS[qi];
+  document.getElementById('qNum').textContent = `第 ${qi+1} / ${QUESTIONS.length} 题`;
+  document.getElementById('qTitle').textContent = Q.q;
+  document.getElementById('bar').style.width = ((qi/QUESTIONS.length)*100)+'%';
+  const box = document.getElementById('qOpts');
+  box.innerHTML = '';
+  Q.opts.forEach(o=>{
+    const b = document.createElement('button');
+    b.className = 'opt';
+    b.textContent = o.t;
+    b.onclick = ()=>pick(o);
+    box.appendChild(b);
+  });
+}
+
+function pick(o){
+  Object.entries(o.s).forEach(([k,v])=> score[k]=(score[k]||0)+v);
+  qi++;
+  if(qi < QUESTIONS.length){ renderQ(); }
+  else{ showResult(); }
+}
+
+function showResult(){
+  document.getElementById('quizScreen').classList.add('hidden');
+  let best = null, bestV = -1;
+  Object.entries(score).forEach(([k,v])=>{ if(v>bestV){bestV=v;best=k;} });
+  const g = GUESTS[best];
+  const card = document.getElementById('resultCard');
+  card.innerHTML = `
+    <div class="rc-head" style="background:linear-gradient(135deg,${g.color},${g.color}cc);">
+      <div class="emoji">${g.emoji}</div>
+      <div class="rtype">你的旧友人设是</div>
+      <div class="gname">${g.name}</div>
+      <div class="gtag">「${g.tag}」</div>
+    </div>
+    <div class="rc-body">
+      <h3>人格画像</h3>
+      ${g.traits.map(t=>`<div class="trait"><b>·</b><span>${t}</span></div>`).join('')}
+      <div class="quote">${g.quote}</div>
+    </div>
+    <div class="rc-foot">《后会友期》人格测试 · 你是哪位旧友？</div>`;
+  document.getElementById('resultScreen').classList.remove('hidden');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function scrollGallery(){
+  document.getElementById('gallery').scrollIntoView({behavior:'smooth'});
+}
+
+// 渲染嘉宾图鉴
+(function(){
+  const box = document.getElementById('galleryBox');
+  box.innerHTML = Object.values(GUESTS).map(g=>`
+    <div class="gcard">
+      <div class="gh" style="background:linear-gradient(135deg,${g.color},${g.color}cc);">
+        <div class="emoji">${g.emoji}</div>
+        <div><div class="nm">${g.name}</div><div class="tg">「${g.tag}」</div></div>
+      </div>
+      <div class="gb">
+        <div class="role">${g.role}</div>
+        <ul>${g.traits.map(t=>`<li>${t}</li>`).join('')}</ul>
+      </div>
+    </div>`).join('');
+})();
+</script>
+</body>
+</html>
