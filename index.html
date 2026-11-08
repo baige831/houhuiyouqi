@@ -108,6 +108,19 @@
   <!-- 结果 -->
   <div id="resultScreen" class="hidden">
     <div class="result-card" id="resultCard"></div>
+    <div class="card" style="margin-top:16px;">
+      <div class="q-num">🔓 进阶解锁</div>
+      <div class="q-title" style="font-size:17px;">你的专属深度报告</div>
+      <ul style="margin:0 0 14px;padding-left:18px;font-size:14px;color:#5a5349;line-height:1.9;">
+        <li>完整人格画像：你藏起来的那一面</li>
+        <li>你在友情里最容易踩的 3 个雷点</li>
+        <li>你最容易被哪种朋友误解、为什么</li>
+        <li>和走散旧友和解的 3 步具体做法</li>
+        <li>8 位旧友完整深度解读，找到你自己那篇</li>
+      </ul>
+      <a class="btn" id="unlockBtn" href="#" target="_blank" rel="noopener" style="text-decoration:none;text-align:center;display:block;">解锁深度报告 ¥<span id="price">0.9</span></a>
+      <div style="text-align:center;font-size:12px;color:#b7aa99;margin-top:10px;">解锁后获取全部 8 位旧友完整深度解读</div>
+    </div>
     <div style="display:flex;gap:10px;margin-top:16px;">
       <button class="btn" onclick="start()" style="flex:1;">再测一次</button>
       <button class="btn ghost" onclick="scrollGallery()" style="flex:1;">看全部嘉宾</button>
@@ -212,6 +225,11 @@ const QUESTIONS = [
          {t:"把行程安排得明明白白",s:{zhangmeng:1}}]},
 ];
 
+// ===== 付费解锁配置 =====
+// 改成你在面包多(mbd.pub)创建商品后得到的链接
+const PAY_LINK = "https://mbd.pub/你的链接";
+const PRICE = "0.9";
+
 let qi = 0, score = {};
 
 function start(){
@@ -264,6 +282,8 @@ function showResult(){
       <div class="quote">${g.quote}</div>
     </div>
     <div class="rc-foot">《后会友期》人格测试 · 你是哪位旧友？</div>`;
+  document.getElementById('price').textContent = PRICE;
+  document.getElementById('unlockBtn').href = PAY_LINK;
   document.getElementById('resultScreen').classList.remove('hidden');
   window.scrollTo({top:0,behavior:'smooth'});
 }
